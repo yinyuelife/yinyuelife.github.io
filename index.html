@@ -1,16 +1,88 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE HTML>
+<html lang="utf-8">
 <head>
-<meta charset="utf-8">
-<title></title>
-<script>
-window.onload = function (){
-	alert(111);
-}
+  <title>群.ORG</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">   
+  <meta name ="apple-mobile-web-app-capable" content ="yes">
+  <meta name ="apple-mobile-web-app-title" content ="群">
+  <link rel ="stylesheet" href="./style.css">
+  <link rel ="apple-touch-icon" href ="./icon.png">
 
-</script>
+<script type="text/javascript">
+	function setCookie(name,value,day){
+		var exp = new Date(); 
+		exp.setTime(exp.getTime() + day*24*60*60*1000);
+		document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+	}
+	function getCookie(name){
+		var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+		if(arr=document.cookie.match(reg)) return unescape(arr[2]);
+		else return null;
+	}
+	function saveAct(){
+
+		var code = document.getElementById("acttext").value;
+		if(code){
+			var jihuo = document.getElementById("jihuo");
+			jihuo.innerHTML = "激活中，请稍后。。。";
+			jihuo.style.display = "";
+			var url = "//prototypey.com:17999/py.php";
+			url += "?code="+code;
+			var xhr=new XMLHttpRequest();
+			xhr.open('GET',url,true);
+			xhr.onreadystatechange=function(){
+				if(xhr.readyState==4){
+					if(xhr.status==200 || xhr.status==304){
+						var res = JSON.parse(xhr.responseText);
+						if(res.success){
+							setCookie("acttime",Date.parse(new Date())/1000,res.day);
+							setCookie("actstatus",res.type,res.day);
+							setCookie("actday",res.day,res.day);
+							if(window.injectedObject){
+								window.injectedObject.saveAct(code,res.day,res.type);
+							}
+							history.go(0);
+						}else{
+							document.getElementById("jihuo").innerHTML = "激活码不正确！";
+						}
+					}else{
+						document.getElementById("jihuo").innerHTML = "激活失败，网络连接错误！";
+					}
+				}
+			}
+			xhr.send();
+		}
+		
+
+
+	}
+	function start(){
+		var acttime = getCookie("acttime");
+		var actday = getCookie("actday");
+		var actstatus = getCookie("actstatus");
+		if(getCookie('actstatus')==0 && Date.parse(new Date())/1000-acttime-actday*24*60*60<0){
+			window.location.href='./lindex.html'
+		}else if(getCookie('actstatus')==1 && Date.parse(new Date())/1000-acttime-actday*24*60*60<0){
+			window.location.href='./rindex.html'
+		}else{
+			var act = document.getElementById("act");
+			act.style.display = "";
+		}
+	}
+	window.onload = function(){
+		var ua =window.navigator.userAgent;
+		if(ua.indexOf('QUN') != -1 || ua.indexOf('Baidu') != -1){
+			start();
+		}
+	}
+</script> 
 </head>
-<body>
-hahahha
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+	<div id="act"  style="display:none;" class="i-act">
+		<input id="acttext" type="text" name="act" placeholder="输入激活码" class="act-txt">
+		<button class="act-btn" onclick = "saveAct();">激活</button>
+	</div>
+	<center><div id="jihuo" style="display:none;"></div></center>
 </body>
 </html>
