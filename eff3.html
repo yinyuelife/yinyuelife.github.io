@@ -4,7 +4,6 @@
   <title>Prototypey的HTML5、CSS3、TypeScript、Canvas</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="shortcut icon" href="/favicon.ico" />
 
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="fonts/icomoon/style.css">
@@ -26,7 +25,19 @@
   <link rel="stylesheet" href="css/aos.css">
 
   <link rel="stylesheet" href="css/style.css">
-
+	<script type="text/javascript">
+    function setIframeHeight(iframe) {
+         if (iframe) {
+             //确认对象
+             var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+             if (iframeWin.document.body) {
+			 document.getElementById('jiazai').style.display = 'none';
+             iframe.height = iframeWin.document.body.scrollHeight;   //获取ifram内页面内的内容高度
+			 iframe.width = iframeWin.document.body.scrollWidth;
+             }
+         }
+     };
+  </script>
 </head>
 <body>
 
@@ -83,91 +94,25 @@
 
 
 
-    <div class="container-fluid" data-aos="fade" data-aos-delay="500">
-      <div class="row">
-        <div class="col-lg-4">
+    <div class="site-section"  data-aos="fade">
+      <div class="container-fluid">
 
-          <div class="image-wrap-2">
-            <div class="image-info">
-              <a href="eff1.html" class="btn btn-outline-white py-2 px-4">图片撕碎切换</a>
+        <div class="row justify-content-center">
+
+          <div class="col-md-7">
+            <div class="row mb-5">
+              <div class="col-12 ">
+                <h2 class="site-section-heading text-center">3D视差相册</h2>
+              </div>
             </div>
-            <img src="images/img_1.jpg" alt="Image" class="img-fluid">
           </div>
 
         </div>
-        <div class="col-lg-4">
-          <div class="image-wrap-2">
-            <div class="image-info">
-              <a href="eff2.html" class="btn btn-outline-white py-2 px-4">图片滑块</a>
-            </div>
-            <img src="images/img_2.jpg" alt="Image" class="img-fluid">
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="image-wrap-2">
-            <div class="image-info">
-              <a href="eff3.html" class="btn btn-outline-white py-2 px-4">3D视差相册</a>
-            </div>
-            <img src="images/img_3.jpg" alt="Image" class="img-fluid">
-          </div>
-        </div>
 
-        <div class="col-lg-4">
-          <div class="image-wrap-2">
-            <div class="image-info">
-              <a href="eff4.html" class="btn btn-outline-white py-2 px-4">3D倾斜视差图片</a>
-            </div>
-            <img src="images/img_4.jpg" alt="Image" class="img-fluid">
-          </div>
-        </div>
-
-        <div class="col-lg-4">
-          <div class="image-wrap-2">
-            <div class="image-info">
-              <a href="eff5.html" class="btn btn-outline-white py-2 px-4">像素粉碎图片</a>
-            </div>
-            <img src="images/img_5.jpg" alt="Image" class="img-fluid">
-          </div>
-        </div>
-
-        <div class="col-lg-4">
-          <div class="image-wrap-2">
-            <div class="image-info">
-              <a href="eff6.html" class="btn btn-outline-white py-2 px-4">扭曲焦点相册</a>
-            </div>
-            <img src="images/img_6.jpg" alt="Image" class="img-fluid">
-          </div>
-        </div>
-
-        <div class="col-lg-4">
-          <div class="image-wrap-2">
-            <div class="image-info">
-              <a href="eff7.html" class="btn btn-outline-white py-2 px-4">3D旋转盒子</a>
-            </div>
-            <img src="images/img_7.jpg" alt="Image" class="img-fluid">
-          </div>
-        </div>
-
-        <div class="col-lg-4">
-          <div class="image-wrap-2">
-            <div class="image-info">
-              <a href="eff8.html" class="btn btn-outline-white py-2 px-4">运动模糊相册</a>
-            </div>
-            <img src="images/img_3.jpg" alt="Image" class="img-fluid">
-          </div>
-        </div>
-
-        <div class="col-lg-4">
-          <div class="image-wrap-2">
-            <div class="image-info">
-              <a href="eff9.html" class="btn btn-outline-white py-2 px-4">原图对比效果</a>
-            </div>
-            <img src="images/img_4.jpg" alt="Image" class="img-fluid">
-          </div>
-        </div>
-
-      </div>
-    </div>
+<center>
+	<p id='jiazai'>加载中...</p>
+	<iframe width=800 height=500 src="./html5-3d-parallax-photos/index.html" frameborder="0" scrolling="no" id="contIframs" onload="setIframeHeight(this)"></iframe>
+</center>
 
     <div class="footer py-4">
       <div class="container-fluid text-center">
@@ -204,6 +149,7 @@
   <script src="js/main.js"></script>
   
   <script>
+
     $(document).ready(function(){
       $('#lightgallery').lightGallery();
     });
